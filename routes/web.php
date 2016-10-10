@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Rotas
+Auth::routes();
+
+Route::get('/maquinas', 'MaquinaController@index');
+Route::post('/maquina', 'MaquinaController@store');
+Route::delete('/maquina/{maquina}', 'MaquinaController@destroy');
+
+Route::get('/fabricantes', 'FabricanteController@index');
+Route::post('/fabricante', 'FabricanteController@store');
+Route::delete('/fabricante/{fabricante}', 'FabricanteController@destroy');
+
+Route::get('/', 'HomeController@index');
