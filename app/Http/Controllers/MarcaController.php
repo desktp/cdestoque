@@ -17,11 +17,12 @@ class MarcaController extends Controller
     }
 
     public function index(Request $request){
-    	$marcas = Marca::orderBy('created_at', 'asc')->get();
+        $dados = Marca::orderBy('created_at', 'asc')->get();
 
-    	return view('marcas.index', [
-    		'marcas' => $marcas
-    	]);
+        return view('common.cadastro_simples', [
+            'obj' => 'marca',
+            'dados' => $dados
+        ]);
     }
 
     public function store(Request $request){

@@ -26,10 +26,13 @@ class MaquinaController extends Controller
     	$fabricantes = Fabricante::orderBy('fabricante', 'asc')->get();
     	$tipoMaquinas = TipoMaquina::orderBy('id', 'asc')->get();
 
-    	return view('maquinas.index', [
-    		'maquinas' => $maquinas,
-    		'fabricantes' => $fabricantes,
-    		'tipoMaquinas' => $tipoMaquinas
+    	return view('common.cadastro_2', [
+    		'dados1' => $maquinas,
+    		'dados2' => $fabricantes,
+    		'dados3' => $tipoMaquinas,
+            'obj1' => 'maquina',
+            'obj2' => 'fabricante',
+            'obj3' => 'tipoMaquina'
     	]);
     }
 

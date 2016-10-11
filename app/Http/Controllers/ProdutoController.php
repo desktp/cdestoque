@@ -22,15 +22,18 @@ class ProdutoController extends Controller
     }
 
     public function index(Request $request){
-    	$produtos = Produto::orderBy('created_at', 'asc')->get();
-    	$marcas = Marca::orderBy('marca', 'asc')->get();
-    	$tipoProdutos = TipoProduto::orderBy('id', 'asc')->get();
+        $produtos = Produto::orderBy('created_at', 'asc')->get();
+        $marcas = Marca::orderBy('marca', 'asc')->get();
+        $tipoProdutos = TipoProduto::orderBy('id', 'asc')->get();
 
-    	return view('produtos.index', [
-    		'produtos' => $produtos,
-    		'marcas' => $marcas,
-    		'tipoProdutos' => $tipoProdutos
-    	]);
+        return view('common.cadastro_2', [
+            'dados1' => $produtos,
+            'dados2' => $marcas,
+            'dados3' => $tipoProdutos,
+            'obj1' => 'produto',
+            'obj2' => 'marca',
+            'obj3' => 'tipoProduto'
+        ]);
     }
 
     public function store(Request $request){

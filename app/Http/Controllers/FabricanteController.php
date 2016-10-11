@@ -19,8 +19,9 @@ class FabricanteController extends Controller
     public function index(Request $request){
     	$fabricantes = Fabricante::orderBy('created_at', 'asc')->get();
 
-    	return view('fabricantes.index', [
-    		'fabricantes' => $fabricantes
+    	return view('common.cadastro_simples', [
+    		'obj' => 'fabricante',
+            'dados' => $fabricantes
     	]);
     }
 
