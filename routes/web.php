@@ -22,4 +22,12 @@ Route::get('/fabricantes', 'FabricanteController@index');
 Route::post('/fabricante', 'FabricanteController@store');
 Route::delete('/fabricante/{fabricante}', 'FabricanteController@destroy');
 
+Route::get('/marcas', 'MarcaController@index');
+Route::post('/marca', 'MarcaController@store');
+Route::delete('/marca/{marca}', 'MarcaController@destroy');
+
+Route::get('/produtos', 'ProdutoController@index');
+Route::post('/produto', 'ProdutoController@store');
+Route::delete('/produto/{produto}', 'ProdutoController@destroy');
+
 Route::get('/', 'HomeController@index');
