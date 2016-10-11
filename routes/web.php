@@ -30,4 +30,9 @@ Route::get('/produtos', 'ProdutoController@index');
 Route::post('/produto', 'ProdutoController@store');
 Route::delete('/produto/{produto}', 'ProdutoController@destroy');
 
+Route::get('/filials', 'FilialController@index');
+Route::post('/filial', 'FilialController@store');
+Route::delete('/filial/{filial}', 'FilialController@destroy');
+
+
 Route::get('/', 'HomeController@index');

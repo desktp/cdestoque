@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\marca;
+use App\Marca;
 
 class MarcaController extends Controller
 {

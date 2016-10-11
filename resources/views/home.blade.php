@@ -80,6 +80,7 @@
                     <a href="/fabricantes">Fabricantes</a>
                     <a href="/marcas">Marcas</a>
                     <a href="/produtos">Produtos</a>
+                    <a href="/filials">Filiais</a>
                 </div>
             </div>
         </div>
