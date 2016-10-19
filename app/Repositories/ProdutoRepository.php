@@ -14,9 +14,13 @@ class ProdutoRepository
      * @param  User  $user
      * @return Collection
      */
+    public function all(){
+        return Produto::orderBy('id', 'asc');
+    }
+
     public function porMarca(Marca $marca)
     {
-        return Task::where('marca_id', $marca->id)
+        return Produto::where('marca_id', $marca->id)
                     ->orderBy('created_at', 'asc')
                     ->get();
     }

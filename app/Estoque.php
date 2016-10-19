@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Estoque extends Model
 {
+	protected $table = 'estoque';
+
     protected $fillable =['produto_id', 'filial_id', 'qtd'];
 
     public function produto(){

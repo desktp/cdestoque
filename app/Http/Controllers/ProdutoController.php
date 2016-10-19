@@ -52,4 +52,8 @@ class ProdutoController extends Controller
 
     	return redirect('/produtos');
     }
+
+    public function porMarcaJson(Request $request){
+        return response()->json($this->produtos->porMarca($request->marca), 200);
+    }
 }

@@ -44,5 +44,9 @@ class MarcaController extends Controller
     	return redirect('/marcas');
     }
 
+    public function allJson(){
+        $marcas = Marca::orderBy('id', 'asc')->get();
 
+        return response()->json($marcas, 200);
+    }
 }

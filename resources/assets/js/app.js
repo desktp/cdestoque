@@ -18,3 +18,15 @@ Vue.component('example', require('./components/Example.vue'));
 const app = new Vue({
     el: '#app'
 });
+
+// Custom JS
+
+// Ajax
+Utils.prototype.get = function(url, callback) {
+    var req = new XMLHttpRequest();
+    req.addEventListener("load", function(e){
+      callback(req.responseText);
+    });
+    req.open("get", url, true);
+    req.send();
+}

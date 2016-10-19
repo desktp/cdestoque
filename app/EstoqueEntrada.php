@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EstoqueEntrada extends Model
 {
+    protected $table = 'estoque_entrada';
+
     protected $fillable = [
     	'produto_id',
     	'filial_id',

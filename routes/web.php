@@ -25,14 +25,24 @@ Route::delete('/fabricante/{fabricante}', 'FabricanteController@destroy');
 Route::get('/marcas', 'MarcaController@index');
 Route::post('/marca', 'MarcaController@store');
 Route::delete('/marca/{marca}', 'MarcaController@destroy');
+//
+Route::get('/marcas/all', 'MarcaController@allJson');
+
 
 Route::get('/produtos', 'ProdutoController@index');
 Route::post('/produto', 'ProdutoController@store');
 Route::delete('/produto/{produto}', 'ProdutoController@destroy');
+//
+Route::get('/produtos/marcas/{marca}', 'ProdutoController@porMarcaJson');
+
 
 Route::get('/filials', 'FilialController@index');
 Route::post('/filial', 'FilialController@store');
 Route::delete('/filial/{filial}', 'FilialController@destroy');
 
+Route::get('/estoque', 'EstoqueController@entrada');
+Route::post('/estoque', 'EstoqueController@store');
+
+Route::get('/estoque/marca/{marca}', 'EstoqueController@porMarcaJson');
 
 Route::get('/', 'HomeController@index');
