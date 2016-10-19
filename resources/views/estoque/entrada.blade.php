@@ -10,11 +10,11 @@
 
             <!-- Filiais -->
             <div class="form-group">
-                <label for="filial" class="col-sm-3 control-label">Filial</label>
+                <label for="selectFilial" class="col-sm-3 control-label">Filial</label>
 
                 @if (count($filiais) > 0)
                     <div class="col-sm-6">
-                        <select name="filial_id" id="filial" class="form-control">
+                        <select name="filial_id" id="selectFilial" class="form-control">
                             @foreach ($filiais as $filial)
                                 <option value='{{ $filial->id }}'>{{ $filial->filial }}</option>
                             @endforeach

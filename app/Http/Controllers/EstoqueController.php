@@ -58,19 +58,28 @@ class EstoqueController extends Controller
 	    		'qtd' => $request->qtd,
 	    		'pcoEntrada' => str_replace(',', '.', $request->pcoEntrada)
 	    	]);
-
-
+    		
 	    	$estoque = $this->estoque->porProdutoEFilial($request->produto_id, $request->filial_id);
-	    	$estoque->qtd += $request->qtd;
-	    	$estoque->save();	
+	    	if($estoque == null){
+	    		$estoque = new Estoque();
+	    		$estoque->create([
+	    			'filial_id' => $request->filial_id,
+	    			'produto_id' => $request->produto_id,
+	    			'qtd' => $request->qtd
+	    			]);
+	    	} else {
+	    		$estoque->qtd += $request->qtd;
+	    		$this->estoque->update($estoque);		
+	    	}
 
 	    	DB::commit();
     	} catch (\Exception $e) {
-    		$errors = $e;
     		DB::rollback();
+    		$errors = $e->getMessage();
+    		return redirect('/estoque')->withErrors($errors);
     	}
     	
-    	return redirect('/estoque')->with(['errors' => $errors]);
+    	return redirect('/estoque');
     }
 
     public function porMarcaJson(Request $request){

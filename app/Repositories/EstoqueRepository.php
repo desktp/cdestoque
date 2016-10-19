@@ -38,6 +38,12 @@ class EstoqueRepository
         return Estoque::where('filial_id', $filial)
                     ->where('produto_id', $produto)
                     ->orderBy('created_at', 'asc')
-                    ->get();
+                    ->first();
+    }
+
+    public function update(Estoque $estoque){
+        return Estoque::where('filial_id', $estoque->filial_id)
+                    ->where('produto_id', $estoque->produto_id)
+                    ->update(['qtd' => $estoque->qtd]);
     }
 }
