@@ -78,6 +78,7 @@
                 <div class="links">
                     <a href="/maquinas">Máquinas</a>
                     <a href="/fabricantes">Fabricantes</a>
+                    <a href="/unidades">Unidades</a>
                     <a href="/marcas">Marcas</a>
                     <a href="/produtos">Produtos</a>
                     <a href="/filials">Filiais</a>

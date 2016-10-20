@@ -40,6 +40,10 @@ Route::get('/filials', 'FilialController@index');
 Route::post('/filial', 'FilialController@store');
 Route::delete('/filial/{filial}', 'FilialController@destroy');
 
+Route::get('/unidades', 'UnidadeController@index');
+Route::post('/unidade', 'UnidadeController@store');
+Route::delete('/unidade/{unidade}', 'UnidadeController@destroy');
+
 Route::get('/estoque', 'EstoqueController@entrada');
 Route::post('/estoque', 'EstoqueController@store');
 
