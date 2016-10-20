@@ -13,11 +13,23 @@ class CriarTabelaTipoMaquinas extends Migration
      */
     public function up()
     {
-        Schema::create('tipoMaquinas', function (Blueprint $table) {
+        Schema::create('tipo_maquinas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipoMaquina');
+            $table->string('tipo_maquina');
             $table->timestamps();
         });
+
+        DB::table('tipo_maquinas')->insert(
+            array(
+                'tipo_maquina' => 'Bebidas Quentes'
+            )
+        );
+
+        DB::table('tipo_maquinas')->insert(
+            array(
+                'tipo_maquina' => 'Snack Machine'
+            )
+        );
     }
 
     /**
@@ -27,6 +39,6 @@ class CriarTabelaTipoMaquinas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipoMaquinas');
+        Schema::dropIfExists('tipo_maquinas');
     }
 }

@@ -15,8 +15,14 @@ class CriaTabelaProdutos extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('marca_id');
-            $table->integer('tipoproduto_id')->index();
+            $table->foreign('marca_id')
+                ->index()
+                ->references('id')
+                ->on('marcas');
+            $table->foreign('tipoproduto_id')
+                ->index()
+                ->references('id')
+                ->on('tipo_produtos');
             $table->string('nome');
             $table->timestamps();
         });

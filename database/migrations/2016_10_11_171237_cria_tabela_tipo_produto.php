@@ -13,11 +13,30 @@ class CriaTabelaTipoProduto extends Migration
      */
     public function up()
     {
-        Schema::create('tipoProdutos', function (Blueprint $table) {
+        Schema::create('tipo_produtos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipoProduto');
+            $table->string('tipo_produto');
             $table->timestamps();
         });
+
+        DB::table('tipo_produtos')->insert(
+            array(
+                'tipo_produto' => 'Insumo'
+            )
+        );
+
+        DB::table('tipo_produtos')->insert(
+            array(
+                'tipo_produto' => 'Bebida'
+            )
+        );
+
+        DB::table('tipo_produtos')->insert(
+            array(
+                'tipo_produto' => 'Snack'
+            )
+        );
+
     }
 
     /**

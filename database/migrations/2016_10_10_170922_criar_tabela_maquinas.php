@@ -15,9 +15,15 @@ class CriarTabelaMaquinas extends Migration
     {
         Schema::create('maquinas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tipoMaquina_id')->index();
-            $table->integer('fabricante_id')->index();
-            $table->string('modelo');
+            $table->foreign('tipoMaquina_id')
+                ->index()
+                ->references('id')
+                ->on('tipoMaquina');
+            $table->foreign('fabricante_id')
+                ->index()
+                ->references('id')
+                >on('fabricantes');
+            $table->string('nome');
             $table->timestamps();
         });
     }

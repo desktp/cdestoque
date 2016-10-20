@@ -18,6 +18,12 @@ class CriaTabelaFilial extends Migration
             $table->string('filial');
             $table->timestamps();
         });
+
+        DB::table('filial')->insert(
+            array(
+                'filial' => 'Descalvado'
+            )
+        );
     }
 
     /**

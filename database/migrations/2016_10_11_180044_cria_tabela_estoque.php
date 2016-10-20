@@ -14,10 +14,17 @@ class CriaTabelaEstoque extends Migration
     public function up()
     {
         Schema::create('estoque', function (Blueprint $table) {
-            $table->integer('filial_id')->index();
-            $table->integer('produto_id')->index();
+            $table->foreign('filial_id')
+                ->index()
+                ->references('id')
+                ->on('filiais');
+            $table->foreign('produto_id')
+                ->index()
+                ->references('id')
+                ->on('produtos');
             $table->integer('qtd');
             $table->timestamps();
+            $table->index(['filial_id', 'produto_id'])->unique();
         });
     }
 
