@@ -13,13 +13,13 @@ class CriaTabelaFilial extends Migration
      */
     public function up()
     {
-        Schema::create('filial', function (Blueprint $table) {
+        Schema::create('filiais', function (Blueprint $table) {
             $table->increments('id');
             $table->string('filial');
             $table->timestamps();
         });
 
-        DB::table('filial')->insert(
+        DB::table('filiais')->insert(
             array(
                 'filial' => 'Descalvado'
             )
@@ -33,6 +33,6 @@ class CriaTabelaFilial extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('filial');
+        Schema::dropIfExists('filiais');
     }
 }

@@ -15,16 +15,18 @@ class CriaTabelaProdutos extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreign('marca_id')
-                ->index()
-                ->references('id')
-                ->on('marcas');
-            $table->foreign('tipoproduto_id')
-                ->index()
-                ->references('id')
-                ->on('tipo_produtos');
+            $table->integer('marca_id')->unsigned();
+            $table->integer('tipo_produto_id')->unsigned();
             $table->string('nome');
             $table->timestamps();
+
+            //FKs
+            $table->foreign('marca_id')
+                ->references('id')
+                ->on('marcas');
+            $table->foreign('tipo_produto_id')
+                ->references('id')
+                ->on('tipo_produtos');
         });
     }
 

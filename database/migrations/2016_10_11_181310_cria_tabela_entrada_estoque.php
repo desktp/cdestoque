@@ -15,17 +15,19 @@ class CriaTabelaEntradaEstoque extends Migration
     {
         Schema::create('estoque_entrada', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreign('produto_id')
-                ->index()
-                ->references('id')
-                ->on('produtos');
-            $table->foreign('filial_id')
-                ->index()
-                ->references('id')
-                ->on('filiais');
+            $table->integer('produto_id')->unsigned();
+            $table->integer('filial_id')->unsigned();
             $table->integer('qtd');
             $table->decimal('pcoEntrada', 13, 2);
             $table->timestamps();
+
+            //FKs
+            $table->foreign('produto_id')
+                ->references('id')
+                ->on('produtos');
+            $table->foreign('filial_id')
+                ->references('id')
+                ->on('filiais');
         });
     }
 

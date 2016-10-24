@@ -14,19 +14,20 @@ class CriaTabelaEstoqueMaquina extends Migration
     public function up()
     {
         Schema::create('estoque_maquinas', function (Blueprint $table) {
-            $table->foreign('maquina_id')
-                ->index()
-                ->references('id')
-                ->on('maquinas');
-            $table->foreign('produto_id')
-                ->index()
-                ->references('id')
-                ->on('produtos');
+            $table->integer('maquina_id')->unsigned();
+            $table->integer('produto_id')->unsigned();
             $table->integer('qtd');
             $table->integer('mola');
             $table->decimal('pcoSaida', 13, 2);
             $table->timestamps();
             $table->index(['maquina_id', 'produto_id']);
+
+            $table->foreign('maquina_id')
+                ->references('id')
+                ->on('maquinas');
+            $table->foreign('produto_id')
+                ->references('id')
+                ->on('produtos');
         });
     }
 
