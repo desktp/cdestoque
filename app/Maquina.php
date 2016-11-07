@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maquina extends Model
 {
-    protected $fillable = ['nome', 'fabricante_id', 'tipo_maquina_id'];
+    protected $fillable = ['maquina_modelo_id', 'unidade_id'];
 
-    public function fabricante(){
-    	return $this->belongsTo('App\Fabricante', 'fabricante_id');
+    public function maquina_modelo(){
+    	return $this->belongsTo('App\MaquinaModelo', 'maquina_modelo_id');
     }
 
-    public function tipo_maquina(){
-    	return $this->belongsTo('App\TipoMaquina', 'tipo_maquina_id');
+    public function unidade(){
+    	return $this->belongsTo('App\Unidade', 'unidade_id');
     }
 }
