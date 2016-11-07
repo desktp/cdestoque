@@ -24,30 +24,30 @@ class MaquinaController extends Controller
     public function index(Request $request){
     	$maquinas = Maquina::orderBy('created_at', 'asc')->get();
     	$fabricantes = Fabricante::orderBy('fabricante', 'asc')->get();
-    	$tipoMaquinas = TipoMaquina::orderBy('id', 'asc')->get();
+    	$tipo_maquinas = TipoMaquina::orderBy('id', 'asc')->get();
 
     	return view('common.cadastro_2', [
     		'dados1' => $maquinas,
     		'dados2' => $fabricantes,
-    		'dados3' => $tipoMaquinas,
+    		'dados3' => $tipo_maquinas,
             'obj1' => 'maquina',
             'obj2' => 'fabricante',
-            'obj3' => 'tipoMaquina'
+            'obj3' => 'tipo_maquina'
     	]);
     }
 
     public function store(Request $request){
     	$this->validate($request, [
-    		'modelo' => 'required|max: 50',
+    		'nome' => 'required|max: 50',
     		'fabricante_id' => 'required',
-    		'tipoMaquina_id' => 'required'
+    		'tipo_maquina_id' => 'required'
     		]);
 
     	$maquina = new Maquina();
     	$maquina->create([
-    		'modelo' => $request->modelo,
+    		'nome' => $request->nome,
     		'fabricante_id' => $request->fabricante_id,
-    		'tipoMaquina_id' => $request->tipoMaquina_id
+    		'tipo_maquina_id' => $request->tipo_maquina_id
     	]);
 
     	return redirect('/maquinas');

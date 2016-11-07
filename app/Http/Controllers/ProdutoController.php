@@ -24,15 +24,15 @@ class ProdutoController extends Controller
     public function index(Request $request){
         $produtos = Produto::orderBy('created_at', 'asc')->get();
         $marcas = Marca::orderBy('marca', 'asc')->get();
-        $tipoProdutos = TipoProduto::orderBy('id', 'asc')->get();
+        $tipo_produtos = TipoProduto::orderBy('id', 'asc')->get();
 
         return view('common.cadastro_2', [
             'dados1' => $produtos,
             'dados2' => $marcas,
-            'dados3' => $tipoProdutos,
+            'dados3' => $tipo_produtos,
             'obj1' => 'produto',
             'obj2' => 'marca',
-            'obj3' => 'tipoProduto'
+            'obj3' => 'tipo_produto'
         ]);
     }
 
@@ -40,14 +40,14 @@ class ProdutoController extends Controller
     	$this->validate($request, [
     		'nome' => 'required|max: 50',
     		'marca_id' => 'required',
-    		'tipoProduto_id' => 'required'
+    		'tipo_produto_id' => 'required'
     		]);
 
     	$maquina = new Produto();
     	$maquina->create([
     		'nome' => $request->nome,
     		'marca_id' => $request->marca_id,
-    		'tipoProduto_id' => $request->tipoProduto_id
+    		'tipo_produto_id' => $request->tipo_produto_id
     	]);
 
     	return redirect('/produtos');

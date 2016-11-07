@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TipoMaquina extends Model
 {
-	protected $table = 'tipoMaquinas';
-	protected $fillable = ['tipoMaquina'];
+	//protected $table = 'tipo_maquinas';
+	protected $fillable = ['tipo_maquina'];
 
     public function maquina(){
     	return $this->hasMany('App\Maquina');
