@@ -9,7 +9,7 @@
             {{ csrf_field() }}
 
             <div class="form-group">
-                <label for="{{ $obj1 }}-nome" class="col-sm-3 control-label">{{ ucfirst($obj1) }}</label>
+                <label for="{{ $obj1 }}-nome" class="col-sm-3 control-label">{{ ucfirst(str_replace('_', ' ', $obj1)) }}</label>
 
                 <div class="col-sm-6">
                     <input type="text" name="nome" id="{{ $obj1 }}-nome" class="form-control">
@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-group">
-                <label for="{{ $obj1 }}-tipo" class="col-sm-3 control-label">Tipo {{ $obj1 }}</label>
+                <label for="{{ $obj1 }}-tipo" class="col-sm-3 control-label">Tipo {{ ucfirst(str_replace('_', ' ', $obj1)) }}</label>
 
                 <div class="col-sm-6" id="{{ $obj1 }}-tipo">
                     @foreach ($dados3 as $dado)
@@ -47,7 +47,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-default">
-                        <i class="fa fa-plus fa-fw"></i> Cadastrar {{ $obj1 }}
+                        <i class="fa fa-plus fa-fw"></i> Cadastrar {{ str_replace('_', ' ', $obj1) }}
                     </button>
                 </div>
             </div>
@@ -57,14 +57,14 @@
     @if (count($dados1) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
-                {{ ucfirst($obj1) }}s cadastrados
+                {{ ucfirst(str_replace('_', ' ', $obj1)) }}s cadastrados
             </div>
 
             <div class="panel-body">
                 <table class="table table-striped task-table">
 
                     <thead>
-                        <th>{{ ucfirst($obj1) }}</th>
+                        <th>{{ ucfirst(str_replace('_', ' ', $obj1)) }}</th>
                         <th>{{ ucfirst($obj2) }}</th>
                         <th>Tipo</th>
                         <th>&nbsp;</th>

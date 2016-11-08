@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Maquina;
+use App\MaquinaModelo;
 use App\Fabricante;
 use App\TipoMaquina;
 use App\Repositories\MaquinaRepository;
+use App\Repositories\UnidadeRepository;
+use App\Repositories\FabricanteRepository;
 
 class MaquinaController extends Controller
 {
@@ -22,15 +25,15 @@ class MaquinaController extends Controller
     }
 
     public function index(Request $request){
-    	$maquinas = Maquina::orderBy('created_at', 'asc')->get();
+    	$maquina_modelos = MaquinaModelo::orderBy('created_at', 'asc')->get();
     	$fabricantes = Fabricante::orderBy('fabricante', 'asc')->get();
     	$tipo_maquinas = TipoMaquina::orderBy('id', 'asc')->get();
 
     	return view('common.cadastro_2', [
-    		'dados1' => $maquinas,
+    		'dados1' => $maquina_modelos,
     		'dados2' => $fabricantes,
     		'dados3' => $tipo_maquinas,
-            'obj1' => 'maquina',
+            'obj1' => 'maquina_modelo',
             'obj2' => 'fabricante',
             'obj3' => 'tipo_maquina'
     	]);
@@ -43,7 +46,7 @@ class MaquinaController extends Controller
     		'tipo_maquina_id' => 'required'
     		]);
 
-    	$maquina = new Maquina();
+    	$maquina = new MaquinaModelo();
     	$maquina->create([
     		'nome' => $request->nome,
     		'fabricante_id' => $request->fabricante_id,
@@ -51,5 +54,42 @@ class MaquinaController extends Controller
     	]);
 
     	return redirect('/maquinas');
+    }
+
+    public function associarUnidade(Request $request){
+        $unidades = new UnidadeRepository();
+        $fabricantes = new FabricanteRepository();
+
+        return view('maquina.unidade', [
+            'unidades' => $unidades->all(),
+            'fabricantes' => $fabricantes->all()
+        ]);
+    }
+
+    public function storeAssociarUnidade(Request $request){
+        $this->validate($request, [
+            'unidade_id' => 'required',
+            'maquina_modelo_id' => 'required'
+        ]);
+
+        $maquina = new Maquina();
+        $maquina->create([
+            'unidade_id' => $request->unidade_id,
+            'maquina_modelo_id' => $request->maquina_modelo_id
+        ]);
+
+        return redirect ('/maquinas/unidade');
+    }
+
+    public function porUnidadeJson(Request $request){
+        $retorno = $this->maquinas->maquinasPorUnidade();
+
+        return response()->json($retorno, 200);
+    }
+
+    public function porFabricanteJson(Request $request){
+        $retorno = $this->maquinas->modelosPorFabricante($request->fabricante);
+
+        return response()->json($retorno,200);
     }
 }

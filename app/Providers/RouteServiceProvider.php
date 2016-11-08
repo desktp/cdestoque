@@ -32,7 +32,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('maquina', 'App\Maquina');
         Route::model('marca', 'App\Marca');
         Route::model('produto', 'App\Produto');
-        Route::model('filial', 'App\filial');
+        Route::model('filial', 'App\Filial');
+        Route::model('unidade', 'App\Unidade');
     }
 
     /**

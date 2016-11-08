@@ -17,7 +17,7 @@ class CriarTabelaMaquinas extends Migration
             $table->increments('id');
             $table->integer('fabricante_id')->unsigned();
             $table->integer('maquina_modelo_id')->unsigned();
-            $table->integer('unidade_id')->unsigned()
+            $table->integer('unidade_id')->unsigned();
             $table->timestamps();
 
             // FKs

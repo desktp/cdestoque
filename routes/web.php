@@ -15,27 +15,35 @@
 Auth::routes();
 
 Route::get('/maquinas', 'MaquinaController@index');
-Route::post('/maquina', 'MaquinaController@store');
-Route::delete('/maquina/{maquina}', 'MaquinaController@destroy');
+Route::post('/maquina_modelo', 'MaquinaController@store');
+Route::delete('/maquina_modelo/{maquina}', 'MaquinaController@destroy');
 
+Route::get('/maquinas/unidade', 'MaquinaController@associarUnidade');
+Route::post('/maquinas/unidade', 'MaquinaController@storeAssociarUnidade');
+Route::get('/maquinas/unidade/{unidade}', 'MaquinaController@porUnidadeJson');
+
+Route::get('/maquinas/fabricante/{fabricante}', 'MaquinaController@porFabricanteJson');
+
+// Fabricantes
 Route::get('/fabricantes', 'FabricanteController@index');
 Route::post('/fabricante', 'FabricanteController@store');
 Route::delete('/fabricante/{fabricante}', 'FabricanteController@destroy');
 
+// Marcas
 Route::get('/marcas', 'MarcaController@index');
 Route::post('/marca', 'MarcaController@store');
 Route::delete('/marca/{marca}', 'MarcaController@destroy');
 //
 Route::get('/marcas/all', 'MarcaController@allJson');
 
-
+// Produtos
 Route::get('/produtos', 'ProdutoController@index');
 Route::post('/produto', 'ProdutoController@store');
 Route::delete('/produto/{produto}', 'ProdutoController@destroy');
 //
 Route::get('/produtos/marcas/{marca}', 'ProdutoController@porMarcaJson');
 
-
+// Filiais
 Route::get('/filials', 'FilialController@index');
 Route::post('/filial', 'FilialController@store');
 Route::delete('/filial/{filial}', 'FilialController@destroy');
