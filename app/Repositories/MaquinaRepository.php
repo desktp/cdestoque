@@ -6,6 +6,7 @@ use App\User;
 use App\Maquina;
 use App\MaquinaModelo;
 use App\Fabricante;
+use App\Unidade;
 
 class MaquinaRepository
 {
@@ -26,5 +27,9 @@ class MaquinaRepository
         return Maquina::where('unidade_id', $unidade->id)
                     ->orderBy('created_at', 'asc')
                     ->get();
+    }
+
+    public function getModelo(MaquinaModelo $maquina_modelo){
+        return MaquinaModelo::where('id', $maquina_modelo->id)->get();
     }
 }

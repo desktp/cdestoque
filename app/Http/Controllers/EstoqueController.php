@@ -10,6 +10,7 @@ use App\Repositories\EstoqueRepository;
 use App\Repositories\FilialRepository;
 use App\Repositories\ProdutoRepository;
 use App\Repositories\MarcaRepository;
+use App\Repositories\UnidadeRepository;
 
 use App\EstoqueEntrada;
 use App\Estoque;
@@ -24,6 +25,7 @@ class EstoqueController extends Controller
     	$this->estoque = $repository;
     }
 
+    // GET
     public function index(Request $request){
     	return view('estoque.entrada', [
     		'estoque' => $this->estoque->all(),
@@ -41,6 +43,27 @@ class EstoqueController extends Controller
     	]);
     }
 
+    public function entradaMaquina(Request $request){
+        $unidades = new UnidadeRepository();
+
+        return view('estoque.maquina', [
+            'unidades' => $unidades->all()
+        ]);
+    }
+
+    public function porMarcaJson(Request $request){
+        $retorno = $this->estoque->porMarca($request->marca);
+
+        return response()->json($retorno, 200);
+    }
+
+    public function porFilialJson(Request $request){
+        $retorno = $this->estoque->porFilial($request->filial);
+
+        return response()->json($retorno, 200);
+    }
+
+    // POST
     public function store(Request $request){
     	$this->validate($request, [
     		'produto_id' => 'required',
@@ -82,15 +105,5 @@ class EstoqueController extends Controller
     	return redirect('/estoque');
     }
 
-    public function porMarcaJson(Request $request){
-    	$retorno = $this->estoque->porMarca($request->marca);
-
-    	return response()->json($retorno, 200);
-    }
-
-    public function porFilialJson(Request $request){
-    	$retorno = $this->estoque->porFilial($request->filial);
-
-    	return response()->json($retorno, 200);
-    }
+    
 }

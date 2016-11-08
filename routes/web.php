@@ -17,10 +17,11 @@ Auth::routes();
 Route::get('/maquinas', 'MaquinaController@index');
 Route::post('/maquina_modelo', 'MaquinaController@store');
 Route::delete('/maquina_modelo/{maquina}', 'MaquinaController@destroy');
+Route::get('/maquina_modelo/{maquina_modelo}', 'MaquinaController@getModeloJson');
 
-Route::get('/maquinas/unidade', 'MaquinaController@associarUnidade');
+Route::get('/maquinas/unidades', 'MaquinaController@associarUnidade');
 Route::post('/maquinas/unidade', 'MaquinaController@storeAssociarUnidade');
-Route::get('/maquinas/unidade/{unidade}', 'MaquinaController@porUnidadeJson');
+Route::get('/maquinas/unidades/{unidade}', 'MaquinaController@porUnidadeJson');
 
 Route::get('/maquinas/fabricante/{fabricante}', 'MaquinaController@porFabricanteJson');
 
@@ -54,6 +55,8 @@ Route::delete('/unidade/{unidade}', 'UnidadeController@destroy');
 
 Route::get('/estoque', 'EstoqueController@entrada');
 Route::post('/estoque', 'EstoqueController@store');
+
+Route::get('/estoque/maquinas', 'EstoqueController@entradaMaquina');
 
 Route::get('/estoque/marca/{marca}', 'EstoqueController@porMarcaJson');
 

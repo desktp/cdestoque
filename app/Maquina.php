@@ -15,4 +15,8 @@ class Maquina extends Model
     public function unidade(){
     	return $this->belongsTo('App\Unidade', 'unidade_id');
     }
+
+    public function estoque_maquina(){
+    	return $this->hasMany('App\EstoqueMaquina');
+    }
 }

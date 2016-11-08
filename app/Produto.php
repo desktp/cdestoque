@@ -15,4 +15,8 @@ class Produto extends Model
     public function tipo_produto(){
     	return $this->belongsTo('App\TipoProduto', 'tipo_produto_id');
     }
+
+    public function estoque_maquina(){
+    	return $this->hasMany('App\EstoqueMaquina');
+    }
 }

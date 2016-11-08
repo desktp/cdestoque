@@ -83,7 +83,7 @@
                     <a href="/produtos">Produtos</a>
                     <a href="/filials">Filiais</a>
                     <a href="/estoque">Entrada Estoque</a>
-                    <a href="/maquinas/unidade">Associar unidade/máquina</a>
+                    <a href="/maquinas/unidades">Associar unidade/máquina</a>
                 </div>
             </div>
         </div>
