@@ -61,3 +61,4 @@ Route::get('/estoque/maquinas', 'EstoqueController@entradaMaquina');
 Route::get('/estoque/marca/{marca}', 'EstoqueController@porMarcaJson');
 
 Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
