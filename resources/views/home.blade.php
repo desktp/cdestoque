@@ -15,58 +15,7 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+        <link rel="stylesheet" href="css/home.css">
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -75,17 +24,42 @@
                     Coffee & Drinks
                 </div>
 
-                <div class="links">
-                    <a href="/maquinas">Máquinas</a>
-                    <a href="/fabricantes">Fabricantes</a>
-                    <a href="/unidades">Unidades</a>
-                    <a href="/marcas">Marcas</a>
-                    <a href="/produtos">Produtos</a>
-                    <a href="/filials">Filiais</a>
-                    <a href="/estoque">Entrada Estoque</a>
-                    <a href="/maquinas/unidades">Associar unidade/máquina</a>
-                </div>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                      <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" data-parent="#accordion">
+                        Cadastros
+                      </div>
+                      <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul>
+                                <li><a class="btn btn-default" href="/maquinas">Máquinas</a></li>
+                                <li><a class="btn btn-default" href="/fabricantes">Fabricantes</a></li>
+                                <li><a class="btn btn-default" href="/unidades">Unidades</a></li>
+                                <li><a class="btn btn-default" href="/marcas">Marcas</a></li>
+                                <li><a class="btn btn-default" href="/produtos">Produtos</a></li>
+                                <li><a class="btn btn-default" href="/filials">Filiais</a></li>
+                                <li><a class="btn btn-default" href="/maquinas/unidades">Associar unidade/máquina</a></li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading" data-toggle="collapse" data-target="#collapse2" data-parent="#accordion">
+                        Estoque
+                      </div>
+                      <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul>
+                                <li><a class="btn btn-default" href="/estoque">Entrada Estoque</a></li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                </div> 
             </div>
         </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>
