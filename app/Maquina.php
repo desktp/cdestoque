@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maquina extends Model
 {
-    protected $fillable = ['maquina_modelo_id', 'unidade_id'];
+    protected $fillable = ['maquina_modelo_id', 'unidade_id', 'apelido'];
 
     public function maquina_modelo(){
     	return $this->belongsTo('App\MaquinaModelo', 'maquina_modelo_id');

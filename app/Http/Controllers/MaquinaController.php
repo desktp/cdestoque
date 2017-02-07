@@ -90,16 +90,18 @@ class MaquinaController extends Controller
     public function storeAssociarUnidade(Request $request){
         $this->validate($request, [
             'unidade_id' => 'required',
-            'maquina_modelo_id' => 'required'
+            'maquina_modelo_id' => 'required',
+            'apelido' => 'required'
         ]);
 
         $maquina = new Maquina();
         $maquina->create([
             'unidade_id' => $request->unidade_id,
-            'maquina_modelo_id' => $request->maquina_modelo_id
+            'maquina_modelo_id' => $request->maquina_modelo_id,
+            'apelido' => $request->apelido
         ]);
 
-        return redirect ('/maquinas/unidade');
+        return redirect ('/maquinas/unidades');
     }
 
 

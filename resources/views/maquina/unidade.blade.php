@@ -57,6 +57,14 @@
                     </div>
             </div>
 
+            <!-- Apelido -->
+            <div class="form-group">
+                <label for="textApelido" class="col-sm-3 control-label">Apelido</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="apelido" placeholder="Insira apelido para identificação"/>
+                    </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-default">
