@@ -22,7 +22,7 @@
                     </div>
                 @else
                     <div class="col-sm-6">
-                        <a class="btn" href="/filials">Nenhuma unidade cadastrada. Clique aqui para cadastrar.</a>
+                        <a class="btn" href="/unidades">Nenhuma unidade cadastrada. Clique aqui para cadastrar.</a>
                     </div>
                 @endif
             </div>
