@@ -7,6 +7,7 @@ use App\Produto;
 use App\Marca;
 use App\Filial;
 use App\Estoque;
+use App\EstoqueMaquina;
 
 class EstoqueRepository
 {
@@ -27,8 +28,7 @@ class EstoqueRepository
                         ->get();
     }
 
-    public function porFilial(Filial $filial)
-    {
+    public function porFilial(Filial $filial){
         return Estoque::where('filial_id', $filial->id)
                     ->orderBy('created_at', 'asc')
                     ->get();
@@ -45,5 +45,17 @@ class EstoqueRepository
         return Estoque::where('filial_id', $estoque->filial_id)
                     ->where('produto_id', $estoque->produto_id)
                     ->update(['qtd' => $estoque->qtd]);
+    }
+
+    public function porMaquinaEMola(int $maquina, int $mola){
+        return EstoqueMaquina::where('maquina_id', $maquina)
+                                ->where('mola', $mola)
+                                ->first();
+    }
+
+    public function updateEstoqueMaquina(EstoqueMaquina $estoqueMaquina){
+        return EstoqueMaquina::where('produto_id', $estoqueMaquina->produto_id)
+                                ->where('maquina_id', $estoqueMaquina->maquina_id)
+                                ->update(['qtd' => $estoqueMaquina->qtd]);
     }
 }

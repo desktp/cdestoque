@@ -27,7 +27,7 @@
                 @endif
             </div>
 
-            <!-- Maquinas -->
+            <!-- Maquinas (por apelido) -->
             <div class="form-group">
                 <label for="selectMaquina" class="col-sm-3 control-label">Maquina</label>
                     <div class="col-sm-6">
@@ -38,34 +38,44 @@
                     </div>
             </div>
 
-            <table class="table table-striped">
-                    <thead>
-                        <th>Marca</th>
-                        <th>Produto</th>
-                        <th>Mola</th>
-                        <th>Quantidade</th>
-                        <th>Preço</th>
-                        <th>&nbsp;</th>
-                    </thead>
+            <div id="estoque-container">
+                <div class="produto">
+                    <span class="mola">1</span><br>
+                    <span class="nome-produto">Toddynho</span><br>
+                    <span class="pco">2,50</span><br>
+                </div>
+                <div class="produto produto-new">
+                    <span class="add-produto">
+                        <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i><br>
+                        Adicionar produto...
+                    </span>
+                </div>
+                <!-- <div class="produto produto-new">
+                    <div class="form-group col-md-4">                       
+                        <label for="marca_id" class="control-label">Marca</label>
+                        <select name="marca_id" class="form-control input-sm">   
+                        </select>
 
-                    <tbody>
-                            <tr id="firstRow">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                    </tbody>
-                </table>
+                        <label for="produto_id" class="control-label">Produto</label>
+                        <select name="produto_id" class="form-control"> 
+                        </select>
+
+                        <label for="selectMola" class="control-label">Mola</label>
+                        <select id="selectMola" class="form-control">
+                            
+                        </select>
+
+                        <label for="qtd" class="controle-label">Quantidade</label>
+                        <input type="number" id="qtd" min="1" class="form-control">
+
+                        <label for="pcoSaida" class="controle-label">Preço Saída</label>
+                        <input type="number" step="0.01" min="0.01" name="pcoSaida" id="pcoSaida" class="form-control">
+                    </div>
+                </div> -->
+            </div>
 
             <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button id="addProduto" class="btn" type="button">
-                        <i class="fa fa-plus fa-fw" aria-hidden="true"></i>Adicionar Produto
-                    </button>
-                                    
+                <div class="col-sm-offset-3 col-sm-6">                                    
                     <button id="saveAll" type="button" class="btn btn-success">
                         Salvar alterações
                     </button>
@@ -90,12 +100,7 @@
                         
                         // Pega informacoes detalhadas de cada máquina
                         $.each(data, function(i, item){
-                            $.getJSON("/maquina_modelo/"+item.maquina_modelo_id, {})
-                                
-                                .done(function(data){
-                                    $("#selectMaquina").append("<option value=\"" + data[0].id + "\" >" + data[0].nome + "</option>")        
-                                });
-                            
+                            $("#selectMaquina").append("<option value=\"" + data[i].id + "\" >" + data[i].apelido + "</option>")
                         });
                         
                         $('.fa-spinner').hide();  
@@ -109,11 +114,10 @@
             }).change();
 
             // Adiciona novo produto
-            $('#addProduto').click(function(){
+            $('.add-produto').click(function(){
                 
                 // Pegar marcas e produtos via JSON
-                $("#firstRow").after("<tr id=\"newProduto\"></tr>");
-                $("#newProduto").append("<td><select id=\"selectMarca\" class=\"form-control\"></select></td><td><select id=\"selectProduto\" class=\"form-control\"></select></td><td><select id=\"selectMola\" class=\"form-control\"></select></td><td><input type=\"number\" id=\"qtd\" min=\"1\" class=\"form-control\"></td><td><input type=\"number\" step=\"0.01\" min=\"0.01\" name=\"pcoSaida\" id=\"pcoSaida\" class=\"form-control\"></td><td><button id=\"saveProduto\" class=\"btn btn-success\" type=\"button\"><i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i>Salvar Produto</button>");
+                $(".produto-new").html("<div class=\"form-group col-md-4\"><label for=\"selectMarca\" class=\"control-label\">Marca</label><select id=\"selectMarca\" class=\"form-control input-sm\"></select><label for=\"selectProduto\" class=\"control-label\">Produto</label><select id=\"selectProduto\" class=\"form-control\"></select><label for=\"selectMola\" class=\"control-label\">Mola</label><select id=\"selectMola\" class=\"form-control\"></select><label for=\"qtd\" class=\"controle-label\">Quantidade</label><input type=\"number\" id=\"qtd\" min=\"1\" class=\"form-control\"><label for=\"pcoSaida\" class=\"controle-label\">Preço Saída</label><input type=\"number\" step=\"0.01\" min=\"0.01\" name=\"pcoSaida\" id=\"pcoSaida\" class=\"form-control\"><br><button id=\"saveProduto\" type=\"button\" class=\"btn btn-success\">Salvar</button></div>");
 
                 for (var i = 1; i <= 50; i++) {
                     $("#selectMola").append("<option value=" + i + ">" + i + "</option>");
@@ -124,6 +128,7 @@
                         $.each(data, function(i, item){
                             $("#selectMarca").append("<option value="+item.id+">"+item.marca+"</option>");
                         })
+                    $("#selectMarca").change();
                     })
 
                 // Popula Produtos
@@ -141,26 +146,32 @@
 
                 // Adiciona produto à tabela para ser salvo posteriormente
                 $("#saveProduto").click(function(){
-                    marca = {
-                        id: $("#selectMarca").val(),
-                        marca: $("#selectMarca option:selected").text()
-                    };
-                    produto = {
-                        id: $("#selectProduto").val(),
-                        nome: $("#selectProduto option:selected").text()
-                    };                  
-                    mola = $("#selectMola option:selected").text();
-                    qtd  = $("#qtd").val();
-                    pcoSaida = $("#pcoSaida").val();
+                    var estoqueMaquina = {
+                        maquina_id: $("#selectMaquina").val(),
+                        produto_id: $("#selectProduto").val(),
+                        mola: $("#selectMola option:selected").text(),
+                        qtd: $("#qtd").val(),
+                        pcoSaida: $("#pcoSaida").val()
+                    }
 
-                    $("#firstRow").after("<tr id=\"produto_"+produto.id+"\"><td>"+marca.marca+"</td><td>"+produto.nome+"</td><td>"+mola+"</td><td>"+qtd+"</td><td>"+pcoSaida+"</td></tr>");
-                    $("#newProduto").remove();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.post("/estoque/maquina", estoqueMaquina)
+                        .done(function(data){
+                            alert("Abastecimento salvo");
+                        })
+                        .fail(function(data){
+                            alert(data.responseText);
+                        });
+
+                    //$("#estoque-container").append("<div class=\"produto\"><span class=\"mola\">"+estoqueMaquina.mola+"</span><br><span class=\"nome-produto\">"+estoqueMaquina.produto_id+"</span><br><span class=\"pco\">"+estoqueMaquina.pcoSaida+"</span><br></div>");
+                    //$(".produto-new").html("<span class=\"add-produto\"><i class=\"fa fa-plus-circle fa-3x\" aria-hidden=\"true\"></i><br>Adicionar produto...</span>");
                 });
             }); // Fim addProduto
-
-            $("#saveAll").click(function(){
-                // WIP
-            });
         }); // Fim onpageload
     </script>
 @endsection

@@ -14,6 +14,7 @@ use App\Repositories\UnidadeRepository;
 
 use App\EstoqueEntrada;
 use App\Estoque;
+use App\EstoqueMaquina;
 
 class EstoqueController extends Controller
 {
@@ -105,5 +106,36 @@ class EstoqueController extends Controller
     	return redirect('/estoque');
     }
 
-    
+    public function storeEntradaMaquina(Request $request){
+        $this->validate($request, [
+            'maquina_id' => 'required',
+            'produto_id' => 'required',
+            'qtd' => 'required|min: 1',
+            'mola' => 'required',
+            'pcoSaida' => 'required|min: 0.01'
+            ]);
+
+        $estoqueMaquina = $this->estoque->porMaquinaEMola($request->maquina_id, $request->mola);
+        
+
+        if (!$estoqueMaquina){
+            $estoqueMaquina = new EstoqueMaquina();
+            $estoqueMaquina->maquina_id = $request->maquina_id;
+            $estoqueMaquina->produto_id = $request->produto_id;
+            $estoqueMaquina->qtd = $request->qtd;
+            $estoqueMaquina->mola = $request->mola;
+            $estoqueMaquina->pcoSaida = $request->pcoSaida;
+
+            $estoqueMaquina->save();
+        } 
+        else if ($estoqueMaquina && $estoqueMaquina->produto_id == $request->produto_id) {
+             $estoqueMaquina->qtd += $request->qtd;
+             $this->estoque->updateEstoqueMaquina($estoqueMaquina);
+        } 
+        else {
+            return response()->json("{\"erro\": \"Ja existe um produto na mola selecionada. Remover o produto antes de inserir um novo\"}", 500);
+        }
+
+        return response()->json($estoqueMaquina, 200);
+    }
 }

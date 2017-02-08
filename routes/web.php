@@ -57,6 +57,7 @@ Route::get('/estoque', 'EstoqueController@entrada');
 Route::post('/estoque', 'EstoqueController@store');
 
 Route::get('/estoque/maquinas', 'EstoqueController@entradaMaquina');
+Route::post('/estoque/maquina', 'EstoqueController@storeEntradaMaquina');
 
 Route::get('/estoque/marca/{marca}', 'EstoqueController@porMarcaJson');
 
