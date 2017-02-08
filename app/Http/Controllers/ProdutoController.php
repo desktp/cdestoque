@@ -56,4 +56,8 @@ class ProdutoController extends Controller
     public function porMarcaJson(Request $request){
         return response()->json($this->produtos->porMarca($request->marca), 200);
     }
+
+    public function porIDJson(Request $request){
+        return response()->json($this->produtos->porID($request->produto));
+    }
 }

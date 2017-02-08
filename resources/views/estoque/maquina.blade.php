@@ -39,46 +39,11 @@
             </div>
 
             <div id="estoque-container">
-                <div class="produto">
-                    <span class="mola">1</span><br>
-                    <span class="nome-produto">Toddynho</span><br>
-                    <span class="pco">2,50</span><br>
-                </div>
                 <div class="produto produto-new">
                     <span class="add-produto">
                         <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i><br>
                         Adicionar produto...
                     </span>
-                </div>
-                <!-- <div class="produto produto-new">
-                    <div class="form-group col-md-4">                       
-                        <label for="marca_id" class="control-label">Marca</label>
-                        <select name="marca_id" class="form-control input-sm">   
-                        </select>
-
-                        <label for="produto_id" class="control-label">Produto</label>
-                        <select name="produto_id" class="form-control"> 
-                        </select>
-
-                        <label for="selectMola" class="control-label">Mola</label>
-                        <select id="selectMola" class="form-control">
-                            
-                        </select>
-
-                        <label for="qtd" class="controle-label">Quantidade</label>
-                        <input type="number" id="qtd" min="1" class="form-control">
-
-                        <label for="pcoSaida" class="controle-label">Preço Saída</label>
-                        <input type="number" step="0.01" min="0.01" name="pcoSaida" id="pcoSaida" class="form-control">
-                    </div>
-                </div> -->
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">                                    
-                    <button id="saveAll" type="button" class="btn btn-success">
-                        Salvar alterações
-                    </button>
                 </div>
             </div>
         </form>
@@ -100,7 +65,7 @@
                         
                         // Pega informacoes detalhadas de cada máquina
                         $.each(data, function(i, item){
-                            $("#selectMaquina").append("<option value=\"" + data[i].id + "\" >" + data[i].apelido + "</option>")
+                            $("#selectMaquina").append("<option value=\"" + data[i].id + "\" >" + data[i].apelido + "</option>").change();
                         });
                         
                         $('.fa-spinner').hide();  
@@ -110,8 +75,15 @@
 
             // Popula tabela produtos
             $('#selectMaquina').change(function(){
-                // Se tipo maquina Snack, mola combobox=disabled
-            }).change();
+                $.getJSON("/estoque/maquina/" + $("#selectMaquina").val(), {})
+                    .done(function(data){
+                        $(".produto-new").siblings().remove();
+
+                        $.each(data, function(i, item){
+                            $(".produto-new").before("<div class=\"produto\"><span class=\"mola\">" + data[i].mola + "</span><br><span class=\"nome-produto\">" + data[i].produto_nome + "</span><br><span class=\"pco\">R$ "+ data[i].pcoSaida + "</span><br></div>")
+                        });
+                });
+            });
 
             // Adiciona novo produto
             $('.add-produto').click(function(){
@@ -163,13 +135,12 @@
                     $.post("/estoque/maquina", estoqueMaquina)
                         .done(function(data){
                             alert("Abastecimento salvo");
+                            $(".produto-new").html("<span class=\"add-produto\"><i class=\"fa fa-plus-circle fa-3x\" aria-hidden=\"true\"></i><br>Adicionar produto...</span>")
+                            $("#selectMaquina").change();
                         })
                         .fail(function(data){
                             alert(data.responseText);
                         });
-
-                    //$("#estoque-container").append("<div class=\"produto\"><span class=\"mola\">"+estoqueMaquina.mola+"</span><br><span class=\"nome-produto\">"+estoqueMaquina.produto_id+"</span><br><span class=\"pco\">"+estoqueMaquina.pcoSaida+"</span><br></div>");
-                    //$(".produto-new").html("<span class=\"add-produto\"><i class=\"fa fa-plus-circle fa-3x\" aria-hidden=\"true\"></i><br>Adicionar produto...</span>");
                 });
             }); // Fim addProduto
         }); // Fim onpageload

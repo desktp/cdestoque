@@ -24,4 +24,9 @@ class ProdutoRepository
                     ->orderBy('created_at', 'asc')
                     ->get();
     }
+
+    public function porID(int $produto){
+        return Produto::where('id', $produto)
+                        ->first();
+    }
 }

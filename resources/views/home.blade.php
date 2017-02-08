@@ -55,6 +55,18 @@
                         </div>
                       </div>
                     </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading" data-toggle="collapse" data-target="#collapse3" data-parent="#accordion">
+                        Operação
+                      </div>
+                      <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul>
+                                <li><a class="btn btn-default" href="/estoque/maquinas">Abastecimento Máquina</a></li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
                 </div> 
             </div>
         </div>

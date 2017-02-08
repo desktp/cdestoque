@@ -64,6 +64,12 @@ class EstoqueController extends Controller
         return response()->json($retorno, 200);
     }
 
+    public function getAllEstoqueMaquinaJson(Request $request){
+        $retorno = $this->estoque->getAllEstoqueMaquina($request->maquina);
+
+        return response()->json($retorno, 200);
+    }
+
     // POST
     public function store(Request $request){
     	$this->validate($request, [

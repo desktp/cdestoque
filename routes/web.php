@@ -43,6 +43,7 @@ Route::post('/produto', 'ProdutoController@store');
 Route::delete('/produto/{produto}', 'ProdutoController@destroy');
 //
 Route::get('/produtos/marcas/{marca}', 'ProdutoController@porMarcaJson');
+Route::get('/produtos/{produto}', 'ProdutoController@porIDJson');
 
 // Filiais
 Route::get('/filials', 'FilialController@index');
@@ -60,6 +61,8 @@ Route::get('/estoque/maquinas', 'EstoqueController@entradaMaquina');
 Route::post('/estoque/maquina', 'EstoqueController@storeEntradaMaquina');
 
 Route::get('/estoque/marca/{marca}', 'EstoqueController@porMarcaJson');
+Route::get('/estoque/maquina/{maquina}', 'EstoqueController@getAllEstoqueMaquinaJson');
+
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');

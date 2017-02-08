@@ -41,17 +41,18 @@
 
 .mola::before {
     content: " ";
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     background-color: white;
     border-radius: 100%;
     border: 1px solid #aaa;
     background-size: 100% 100%;
     position: absolute;
-    left: -50%;
+    left: 50%;
     top: 0;
     display: inline;
     z-index: -1;
+    transform: translate(-50%, 0);
 }
 
 .nome-produto, .qtd, .pco {

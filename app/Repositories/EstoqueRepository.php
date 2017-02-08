@@ -8,6 +8,9 @@ use App\Marca;
 use App\Filial;
 use App\Estoque;
 use App\EstoqueMaquina;
+use App\Maquina;
+
+use App\Repositories\ProdutoRepository;
 
 class EstoqueRepository
 {
@@ -20,6 +23,21 @@ class EstoqueRepository
 
     public function all(){
         return Estoque::orderBy('id', 'asc')->get();
+    }
+
+    public function getAllEstoqueMaquina(Maquina $maquina){
+        $estoqueMaquina = EstoqueMaquina::where('maquina_id', $maquina->id)
+                                ->orderBy('mola', 'asc')
+                                ->get();
+
+        $produtoRepository = new ProdutoRepository();
+
+        foreach($estoqueMaquina as $e){
+            $produto = $produtoRepository->porID($e->produto_id);
+            $e->{'produto_nome'} = $produto->nome;
+        }
+
+        return $estoqueMaquina;
     }
 
     public function porProduto(Produto $produto){
