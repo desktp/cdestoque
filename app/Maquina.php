@@ -19,4 +19,8 @@ class Maquina extends Model
     public function estoque_maquina(){
     	return $this->hasMany('App\EstoqueMaquina');
     }
+
+    public function estoque_saida(){
+        return $this->hasMany('App\EstoqueSaida');
+    }
 }
