@@ -59,21 +59,15 @@ class EstoqueRepository
                     ->first();
     }
 
-    public function update(Estoque $estoque){
+    public function updateQtd(Estoque $estoque){
         return Estoque::where('filial_id', $estoque->filial_id)
                     ->where('produto_id', $estoque->produto_id)
                     ->update(['qtd' => $estoque->qtd]);
     }
 
-    public function porMaquinaEMola(int $maquina, int $mola){
-        return EstoqueMaquina::where('maquina_id', $maquina)
-                                ->where('mola', $mola)
+    public function porMaquinaEMola(EstoqueMaquina $estoqueMaquina){
+        return EstoqueMaquina::where('maquina_id', $estoqueMaquina->maquina_id)
+                                ->where('mola', $estoqueMaquina->mola)
                                 ->first();
-    }
-
-    public function updateEstoqueMaquina(EstoqueMaquina $estoqueMaquina){
-        return EstoqueMaquina::where('produto_id', $estoqueMaquina->produto_id)
-                                ->where('maquina_id', $estoqueMaquina->maquina_id)
-                                ->update(['qtd' => $estoqueMaquina->qtd]);
     }
 }

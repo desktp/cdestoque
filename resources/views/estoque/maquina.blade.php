@@ -10,8 +10,20 @@
 
             <!-- Filiais -->
             <div class="form-group">
-                <label for="selectUnidade" class="col-sm-3 control-label">Unidade</label>
+                <label for="selectFilial" class="col-sm-3 control-label">Estoque</label>
+                @if (count($filiais) > 0)
+                    <div class="col-sm-6">
+                        <select name="filial_id" id="selectFilial" class="form-control">
+                            @foreach ($filiais as $filial)
+                                <option value='{{ $filial->id }}'>{{ $filial->filial }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
+            </div>
 
+            <div class="form-group">
+                <label for="selectUnidade" class="col-sm-3 control-label">Unidade</label>
                 @if (count($unidades) > 0)
                     <div class="col-sm-6">
                         <select name="unidade_id" id="selectUnidade" class="form-control">
@@ -27,15 +39,14 @@
                 @endif
             </div>
 
-            <!-- Maquinas (por apelido) -->
             <div class="form-group">
+                <!-- Maquinas (por apelido) -->
                 <label for="selectMaquina" class="col-sm-3 control-label">Maquina</label>
-                    <div class="col-sm-6">
-                        <select name="maquina_id" id="selectMaquina" class="form-control">
-                            <!-- Carregar via AJAX -->
-                        </select>
-                        <i class="fa fa-spinner fa-spin" aria-hidden="true" style="display: none;"></i>
-                    </div>
+                <div class="col-sm-6">
+                    <select name="maquina_id" id="selectMaquina" class="form-control">
+                        <!-- Carregar via AJAX -->
+                    </select>
+                </div>
             </div>
 
             <div id="estoque-container">
@@ -55,10 +66,6 @@
                 // Pega todas as máquinas da unidade
                 $.getJSON("/maquinas/unidades/"+$("#selectUnidade").val(), {})
                     
-                    .always(function(data){
-                        $('.fa-spinner').show();
-                    })
-                    
                     .done(function(data){
                         
                         $('#selectMaquina').children().remove();
@@ -67,8 +74,6 @@
                         $.each(data, function(i, item){
                             $("#selectMaquina").append("<option value=\"" + data[i].id + "\" >" + data[i].apelido + "</option>").change();
                         });
-                        
-                        $('.fa-spinner').hide();  
 
                     });
             }).change();
@@ -76,9 +81,15 @@
             // Popula tabela produtos
             $('#selectMaquina').change(function(){
                 $.getJSON("/estoque/maquina/" + $("#selectMaquina").val(), {})
+                    
+                    // WIP
+                    // .always(function(data){
+                    //     $("#estoque-container").html("<i class=\"fa fa-spinner fa-spin\" aria-hidden=\"true\"></i>");
+                    // });
+
                     .done(function(data){
                         $(".produto-new").siblings().remove();
-
+                        // $(".produto-new").html("<span class=\"add-produto\"><i class=\"fa fa-plus-circle fa-3x\" aria-hidden=\"true\"></i><br>Adicionar produto...</span>");
                         $.each(data, function(i, item){
                             $(".produto-new").before("<div class=\"produto\"><span class=\"mola\">" + data[i].mola + "</span><br><span class=\"nome-produto\">" + data[i].produto_nome + "</span><br><span class=\"pco\">R$ "+ data[i].pcoSaida + "</span><br></div>")
                         });
@@ -89,7 +100,7 @@
             $('.add-produto').click(function(){
                 
                 // Pegar marcas e produtos via JSON
-                $(".produto-new").html("<div class=\"form-group col-md-4\"><label for=\"selectMarca\" class=\"control-label\">Marca</label><select id=\"selectMarca\" class=\"form-control input-sm\"></select><label for=\"selectProduto\" class=\"control-label\">Produto</label><select id=\"selectProduto\" class=\"form-control\"></select><label for=\"selectMola\" class=\"control-label\">Mola</label><select id=\"selectMola\" class=\"form-control\"></select><label for=\"qtd\" class=\"controle-label\">Quantidade</label><input type=\"number\" id=\"qtd\" min=\"1\" class=\"form-control\"><label for=\"pcoSaida\" class=\"controle-label\">Preço Saída</label><input type=\"number\" step=\"0.01\" min=\"0.01\" name=\"pcoSaida\" id=\"pcoSaida\" class=\"form-control\"><br><button id=\"saveProduto\" type=\"button\" class=\"btn btn-success\">Salvar</button></div>");
+                $(".produto-new").html("<div class=\"form-group col-md-6\"><label for=\"selectMarca\" class=\"control-label\">Marca</label><select id=\"selectMarca\" class=\"form-control input-sm\"></select><label for=\"selectProduto\" class=\"control-label\">Produto</label><select id=\"selectProduto\" class=\"form-control\"></select><label for=\"selectMola\" class=\"control-label\">Mola</label><select id=\"selectMola\" class=\"form-control\"></select><label for=\"qtd\" class=\"controle-label\">Quantidade</label><input type=\"number\" id=\"qtd\" min=\"1\" class=\"form-control\"><label for=\"pcoSaida\" class=\"controle-label\">Preço Saída</label><input type=\"number\" step=\"0.01\" min=\"0.01\" name=\"pcoSaida\" id=\"pcoSaida\" class=\"form-control\"><br><button id=\"saveProduto\" type=\"button\" class=\"btn btn-success\">Salvar</button></div>");
 
                 for (var i = 1; i <= 50; i++) {
                     $("#selectMola").append("<option value=" + i + ">" + i + "</option>");
@@ -125,6 +136,9 @@
                         qtd: $("#qtd").val(),
                         pcoSaida: $("#pcoSaida").val()
                     }
+                    var filial = {
+                        id: $("#selectFilial").val()
+                    }
 
                     $.ajaxSetup({
                         headers: {
@@ -132,7 +146,7 @@
                         }
                     });
 
-                    $.post("/estoque/maquina", estoqueMaquina)
+                    $.post("/estoque/maquina", {estoqueMaquina, filial})
                         .done(function(data){
                             alert("Abastecimento salvo");
                             $(".produto-new").html("<span class=\"add-produto\"><i class=\"fa fa-plus-circle fa-3x\" aria-hidden=\"true\"></i><br>Adicionar produto...</span>")
